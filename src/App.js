@@ -1,5 +1,6 @@
 import './App.css';
 import react from 'react';
+import User from './components/User';
 
 class App extends react.Component {
 
@@ -42,7 +43,8 @@ class App extends react.Component {
                 <ul>
                     {
                         users.map(user => {
-                            return<li key={user.id}>id: {user.id}, name: {user.name}</li>
+                            //send/props data to User Component
+                            return<User key={user.id} userData={user}/>
                         })
                     }
                 </ul>
