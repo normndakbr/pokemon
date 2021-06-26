@@ -31,8 +31,15 @@ class App extends react.Component {
         }
     }
 
+    componentDidMount() {
+        
+    }
+
+    //handle change on input
     handleInputChange = (event) => {
         console.log(event.target.value)
+        
+        //set value to state.inputUserName equals value on input
         this.setState({
             inputUserName: event.target.value
         })
