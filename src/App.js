@@ -1,7 +1,6 @@
 import './App.css';
 import react from 'react';
-import User from './components/User';
-import Todo from './components/Todo';
+import Pokemon from './components/Pokemon';
 
 class App extends react.Component {
 
@@ -9,73 +8,26 @@ class App extends react.Component {
         super()
 
         this.state = {
-            todos: [],
-            username: "Akbar",
-            userDetail: {
-                id: 3,
-                name: "Pikachu"
-            },
-            users: [
-                {
-                    id: 1,
-                    name: "Squirtle"
-                },
-                {
-                    id: 2,
-                    name: "Charmender"
-                },
-                {
-                    id: 4,
-                    name: "Totodile"
-                }
-            ],
-            inputUserName: "",
+            pokemons: [],
             loading: true
         }
     }
 
     componentDidMount() {
         this.setState({loading: true})
-        fetch("https://jsonplaceholder.typicode.com/todos/")
+        fetch("https://pokeapi.co/api/v2/pokemon/?offset=1&limit=30")
         .then(res => res.json())
         .then( data => {
+            console.log(data.results)
             this.setState({
-                todos: data,
+                pokemons: data.results,
                 loading: false
             })
         })
     }
 
-    //handle change on input
-    handleInputChange = (event) => {
-        console.log(event.target.value)
-        
-        //set value to state.inputUserName equals value on input
-        this.setState({
-            inputUserName: event.target.value
-        })
-    }
-
-    //handle form submit
-    handleOnSubmit = (event) => {
-        event.preventDefault()
-
-        //ambil data inputUserName yang sudah diinput dari state
-        let newTodo = {
-            id: "001",
-            title: this.state.inputUserName
-        }
-
-        //masukan newTodo ke dalam state todos
-        this.setState({
-            // todos: this.state.todos.concat(newTodo)
-            todos: [...this.state.todos, newTodo]
-            //bisa pakai cara atas dan cara yang bawah
-        })
-    }
-
     render() {
-        const { username, userDetail, users, inputUserName, todos, loading } = this.state
+        const { pokemons, loading } = this.state
         
         if(loading) {
             return <div>Loading...</div>
@@ -83,26 +35,12 @@ class App extends react.Component {
 
         return (
             <>
-                <h1> Hello World </h1>
-                <h3> This is subtitle </h3>
-                <div>{this.state.username}</div>
-                <div>{JSON.stringify(userDetail)}</div>
-                <form onSubmit={this.handleOnSubmit}>
-                    <input value={inputUserName} onChange={this.handleInputChange} placeholder="insert your name" style={{ margin: "10px" }} />
-                </form>
+                <h1> Hi There </h1>
+                <h3> Here comes more wild Pokemon! </h3>
                 <ul>
                     {
-                        users.map(user => {
-                            //send/props data to User Component
-                            return <User key={user.id} userData={user} />
-                        })
-                    }
-                </ul>
-                <ul>
-                    {
-                        todos.map(todo => {
-                            //send/props data to Todo Component
-                            return <Todo key={todo.id} todoList={todo} />
+                        pokemons.map(pokemon => {
+                            return <Pokemon key={pokemon.id} pokemonList={pokemon}/>
                         })
                     }
                 </ul>
