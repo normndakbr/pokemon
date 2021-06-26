@@ -29,16 +29,19 @@ class App extends react.Component {
                     name: "Totodile"
                 }
             ],
-            inputUserName: ""
+            inputUserName: "",
+            loading: true
         }
     }
 
     componentDidMount() {
+        this.setState({loading: true})
         fetch("https://jsonplaceholder.typicode.com/todos/")
         .then(res => res.json())
         .then( data => {
             this.setState({
-                todos: data
+                todos: data,
+                loading: false
             })
         })
     }
@@ -53,16 +56,33 @@ class App extends react.Component {
         })
     }
 
-    render() {
+    //handle form submit
+    handleOnSubmit = (event) => {
+        event.preventDefault()
+        let newTodo = {
+            id: "001",
+            title: this.state.inputUserName
+        }
 
-        const { username, userDetail, users, inputUserName, todos } = this.state
+        this.setState({
+            todos: this.state.todos.concat(newTodo)
+        })
+    }
+
+    render() {
+        const { username, userDetail, users, inputUserName, todos, loading } = this.state
+        
+        if(loading) {
+            return <div>Loading...</div>
+        }
+
         return (
             <>
                 <h1> Hello World </h1>
                 <h3> This is subtitle </h3>
                 <div>{this.state.username}</div>
                 <div>{JSON.stringify(userDetail)}</div>
-                <form>
+                <form onSubmit={this.handleOnSubmit}>
                     <input value={inputUserName} onChange={this.handleInputChange} placeholder="insert your name" style={{ margin: "10px" }} />
                 </form>
                 <ul>
