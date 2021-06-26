@@ -42,7 +42,7 @@ class App extends react.Component {
                 <ul>
                     {
                         users.map(user => {
-                            return<li>{user.name}</li>
+                            return<li key={user.id}>id: {user.id}, name: {user.name}</li>
                         })
                     }
                 </ul>
