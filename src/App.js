@@ -59,11 +59,14 @@ class App extends react.Component {
     //handle form submit
     handleOnSubmit = (event) => {
         event.preventDefault()
+
+        //ambil data inputUserName yang sudah diinput dari state
         let newTodo = {
             id: "001",
             title: this.state.inputUserName
         }
 
+        //masukan newTodo ke dalam state todos
         this.setState({
             todos: this.state.todos.concat(newTodo)
         })
