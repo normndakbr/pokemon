@@ -1,6 +1,7 @@
 import './App.css';
 import react from 'react';
 import User from './components/User';
+import Todo from './components/Todo';
 
 class App extends react.Component {
 
@@ -8,6 +9,7 @@ class App extends react.Component {
         super()
 
         this.state = {
+            todos: [],
             username: "Akbar",
             userDetail: {
                 id: 3,
@@ -32,7 +34,13 @@ class App extends react.Component {
     }
 
     componentDidMount() {
-        
+        fetch("https://jsonplaceholder.typicode.com/todos/")
+        .then(res => res.json())
+        .then( data => {
+            this.setState({
+                todos: data
+            })
+        })
     }
 
     //handle change on input
@@ -47,7 +55,7 @@ class App extends react.Component {
 
     render() {
 
-        const { username, userDetail, users, inputUserName } = this.state
+        const { username, userDetail, users, inputUserName, todos } = this.state
         return (
             <>
                 <h1> Hello World </h1>
@@ -62,6 +70,14 @@ class App extends react.Component {
                         users.map(user => {
                             //send/props data to User Component
                             return <User key={user.id} userData={user} />
+                        })
+                    }
+                </ul>
+                <ul>
+                    {
+                        todos.map(todo => {
+                            //send/props data to Todo Component
+                            return <Todo key={todo.id} todoList={todo} />
                         })
                     }
                 </ul>
