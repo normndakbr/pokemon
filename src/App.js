@@ -68,7 +68,9 @@ class App extends react.Component {
 
         //masukan newTodo ke dalam state todos
         this.setState({
-            todos: this.state.todos.concat(newTodo)
+            // todos: this.state.todos.concat(newTodo)
+            todos: [...this.state.todos, newTodo]
+            //bisa pakai cara atas dan cara yang bawah
         })
     }
 
