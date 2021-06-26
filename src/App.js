@@ -26,25 +26,35 @@ class App extends react.Component {
                     id: 4,
                     name: "Totodile"
                 }
-            ]
+            ],
+            inputUserName: ""
         }
+    }
+
+    handleInputChange = (event) => {
+        console.log(event.target.value)
+        this.setState({
+            inputUserName: event.target.value
+        })
     }
 
     render() {
 
-        const {username, userDetail, users} = this.state
+        const { username, userDetail, users, inputUserName } = this.state
         return (
             <>
                 <h1> Hello World </h1>
                 <h3> This is subtitle </h3>
                 <div>{this.state.username}</div>
                 <div>{JSON.stringify(userDetail)}</div>
-                {/* <div>{JSON.stringify(users)}</div> */}
+                <form>
+                    <input value={inputUserName} onChange={this.handleInputChange} placeholder="insert your name" style={{ margin: "10px" }} />
+                </form>
                 <ul>
                     {
                         users.map(user => {
                             //send/props data to User Component
-                            return<User key={user.id} userData={user}/>
+                            return <User key={user.id} userData={user} />
                         })
                     }
                 </ul>
