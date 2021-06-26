@@ -1,52 +1,35 @@
 import './App.css';
-import react from 'react';
-import Pokemon from './components/Pokemon';
+import React, { useState } from 'react';
 
-class App extends react.Component {
+export default function App() {
+    const [text, setText] = useState("")
+    const [pokemonList, setPokemonList] = useState([])
 
-    constructor() {
-        super()
-
-        this.state = {
-            pokemons: [],
-            loading: true
-        }
+    const handleOnChangeText = (e) => {
+        setText(e.target.value)
+        console.log(text)
     }
 
-    componentDidMount() {
-        this.setState({loading: true})
-        fetch("https://pokeapi.co/api/v2/pokemon/?offset=1&limit=30")
-        .then(res => res.json())
-        .then( data => {
-            console.log(data.results)
-            this.setState({
-                pokemons: data.results,
-                loading: false
-            })
-        })
+    const addPokemon = (e) => {
+        e.preventDefault()
+        const newPokemon = pokemonList
+        setPokemonList(newPokemon.concat({title: text, id: newPokemon.length+1}))
     }
 
-    render() {
-        const { pokemons, loading } = this.state
-        
-        if(loading) {
-            return <div>Loading...</div>
-        }
-
-        return (
-            <>
-                <h1> Hi There </h1>
-                <h3> Here comes more wild Pokemon! </h3>
+    return (
+        <div className="App">
+            Pokemon List
+            <form onSubmit={addPokemon}>
+                <input type="text" onChange={(e) => { handleOnChangeText(e) }} />
+                <input type="submit" />
                 <ul>
                     {
-                        pokemons.map(pokemon => {
-                            return <Pokemon key={pokemon.id} pokemonList={pokemon}/>
+                        pokemonList.map(pokemon => {
+                            return <li key={pokemon.id}>{pokemon.title}</li>
                         })
                     }
                 </ul>
-            </>
-        )
-    }
+            </form>
+        </div>
+    );
 }
-
-export default App;
