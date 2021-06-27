@@ -14,11 +14,16 @@ function useFetch() {
       })
   }, [])
 
-  return [pokeData, setPokedata]
+  // return [pokeData, setPokedata]
+  return {
+    data: pokeData,
+    setData: setPokedata
+  }
 }
 
 export default function Pokemon(props) {
-  const [data, setData] = useFetch([])
+  // const [data, setData] = useFetch([])
+  const {data, setData} = useFetch([])
 
   return (
     <ul>
