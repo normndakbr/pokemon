@@ -1,20 +1,25 @@
-import React, {useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Pokemon(props) {
+  const [pokemons, setPokemons] = useState([])
+
+  //get list of pokemon data from poke-API
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20")
-    .then((res) => res.json())
-    .then(data => {
-      console.log(data.results)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+      .then((res) => res.json())
+      .then(data => {
+        setPokemons(data.results)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }, [])
 
   return (
     <ul>
-      <li>Pokemon</li>
+      {
+        pokemons.map(pokemon => <li key={pokemon.id}>{pokemon.name}</li>)
+      }
     </ul>
   );
 }
