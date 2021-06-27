@@ -1,9 +1,13 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function App() {
     const [text, setText] = useState("")
     const [pokemonList, setPokemonList] = useState([])
+
+    useEffect(() => {
+
+    }, []);
 
     const handleOnChangeText = (e) => {
         setText(e.target.value)
