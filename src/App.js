@@ -1,7 +1,6 @@
 import './App.css';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import { Home, MyPokemon, PokemonDetail } from './pages';
-import Pokemon from './components/Pokemon'
 
 function App() {
   return (
