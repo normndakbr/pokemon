@@ -1,13 +1,15 @@
 import React from 'react';
-import useFetch from '../hooks/useFetch';
+import useFetchPokemon from '../hooks/useFetchPokemon';
 
 export default function Pokemon(props) {
-  const {data: pokemons} = useFetch([])
+  const { listPokemon } = useFetchPokemon("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20")
 
   return (
     <ul>
       {
-        pokemons.map(pokemon => <li key={pokemon.id}>{pokemon.name}</li>)
+        listPokemon.map(pokemon => {
+          return <li key={pokemon.id}>{pokemon.name}</li>
+        })
       }
     </ul>
   );
