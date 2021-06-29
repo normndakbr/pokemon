@@ -32,6 +32,7 @@ export default function PokeCard(props) {
         <div className="card-image">
           <figure className="image has-background-grey-lighter">
             <img src={details.front_default}/>
+            {/* <img src={details['other']['official-artwork']['front_default']}/> */}
           </figure>
         </div>
       </div>
