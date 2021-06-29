@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 
 export default function PokeCard(props) {
-  // const pokemonList = useSelector(state => state.pokemonList)
+  const history = useHistory()
   const [details, setDetails] = useState([])
 
   useEffect(() => {
@@ -17,16 +17,20 @@ export default function PokeCard(props) {
       .catch(err => {
         console.log(err);
       })
-  }, [])
+  }, [props.detailOfPokemon.url])
+
+  function showPokemonDetail(name) {
+    history.push(`/pokemon-detail/${name}`);
+  }
 
   return (
-    <div class="column is-2-desktop is-10-mobile is-4-tablet  is-centered">
-      <div class="card  is-centered">
-        <header class="card-header  is-centered">
-          <p class="card-header-title is-centered">{props.detailOfPokemon.name}</p>
+    <div className="column is-2-desktop is-10-mobile is-4-tablet  is-centered">
+      <div onClick={() => {showPokemonDetail(props.detailOfPokemon.name)}} className="card is-centered">
+        <header className="card-header  is-centered">
+          <p className="card-header-title is-centered is-capitalized">{props.detailOfPokemon.name}</p>
         </header>
-        <div class="card-image">
-          <figure class="image">
+        <div className="card-image">
+          <figure className="image has-background-grey-lighter">
             <img src={details.front_default}/>
           </figure>
         </div>

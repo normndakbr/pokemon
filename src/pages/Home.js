@@ -12,8 +12,8 @@ export default function Home() {
   }, [])
 
   return (
-    <div class="container is-fluid">
-      <div class="columns is-multiline is-mobile is-5 is-variable is-centered">
+    <div className="container is-fluid">
+      <div className="columns is-multiline is-mobile is-5 is-variable is-centered">
         {
           pokemonList.map((pokemon, idx) => {
             return (
