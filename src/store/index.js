@@ -6,7 +6,12 @@ const initialState = {
 }
 
 function reducer(state = initialState, action) {
-  return state
+  switch(action.type) {
+    case "SET_POKEMONLIST":
+      return{...state, pokemonList: action.pokemonList}
+    default: 
+      return state
+  }
 }
 
 const store = createStore(reducer, applyMiddleware(thunk));
