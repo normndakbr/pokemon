@@ -1,19 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import pokemonListReducer from './reducers/pokemonReducer';
 
-const initialState = {
-  pokemonList: []
-}
+const rootReducer = combineReducers({
+  pokemonListReducer
+})
 
-function reducer(state = initialState, action) {
-  switch(action.type) {
-    case "SET_POKEMONLIST":
-      return{...state, pokemonList: action.pokemonList}
-    default: 
-      return state
-  }
-}
-
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

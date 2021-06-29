@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchPokemonList } from '../store/actions/pokemonListAction';
 
 export default function Home() {
-  const pokemonList = useSelector((state) => state.pokemonList)
+  const pokemonList = useSelector((state) => state.pokemonListReducer.pokemonList)
   const dispatch = useDispatch()
 
   useEffect(() => {
