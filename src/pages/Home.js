@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPokemonList } from '../store/actions/pokemonListAction';
+import PokeCard from '../components/pokeCard';
 
 export default function Home() {
   const pokemonList = useSelector((state) => state.pokemonListReducer.pokemonList)
@@ -11,23 +12,15 @@ export default function Home() {
   }, [])
 
   return (
-    <div class="section">
-      <div class="container">
-        {
-          pokemonList.map(pokemon => {
-            return (
-              <div class="column is-3">
-                <div class="card">
-                  <header class="card-header">
-                    <p class="card-header-title has-background-primary">{pokemon.name}</p>
-                  </header>
-                </div>
-              </div>
-              // <li key={pokemon.id}>{pokemon.name}</li>
-            )
-          })
-        }
-      </div>
+    <div class="container">
+      {
+        pokemonList.map((pokemon, idx) => {
+          return (
+            <PokeCard key={idx} detailOfPokemon={pokemon}/>
+            // <li key={pokemon.id}>{pokemon.name}</li>
+          )
+        })
+      }
     </div>
   )
 }
