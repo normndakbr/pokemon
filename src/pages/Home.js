@@ -12,15 +12,16 @@ export default function Home() {
   }, [])
 
   return (
-    <div class="container">
-      {
-        pokemonList.map((pokemon, idx) => {
-          return (
-            <PokeCard key={idx} detailOfPokemon={pokemon}/>
-            // <li key={pokemon.id}>{pokemon.name}</li>
-          )
-        })
-      }
+    <div class="container is-fluid">
+      <div class="columns is-multiline is-mobile is-5 is-variable is-centered">
+        {
+          pokemonList.map((pokemon, idx) => {
+            return (
+              <PokeCard key={idx} detailOfPokemon={pokemon} />
+            )
+          })
+        }
+      </div>
     </div>
   )
 }
