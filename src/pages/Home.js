@@ -1,17 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPokemonList } from '../store/actions/pokemonListAction';
 
 export default function Home() {
-  const pokemons = useSelector((state) => state.pokemons)
-  // const { listPokemon } = useFetchPokemon("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20")
+  const pokemonList = useSelector((state) => state.pokemonList)
+  const dispatch = useDispatch()
 
-  console.log(pokemons, "This is your state")
+  useEffect(() => {
+    dispatch(fetchPokemonList())
+  }, [])
+
+  console.log(pokemonList, "This is your state")
 
   return (
     <>
       <h1>Hello, welcome to Pokemon World!</h1>
       <h3>Gotta Catch 'em all!</h3>
-      <pre> {JSON.stringify(pokemons, null, 2)} </pre>
+      <pre> {JSON.stringify(pokemonList, null, 2)} </pre>
       {/* <ul>
         {
           listPokemon.map(pokemon => {
