@@ -10,32 +10,25 @@ export default function Home() {
     dispatch(fetchPokemonList())
   }, [])
 
-  console.log(pokemonList, "This is your state")
-
   return (
-    <div class="container columns">
-      {/* <h1>Hello, welcome to Pokemon World!</h1> */}
-      {/* <h3>Gotta Catch 'em all!</h3> */}
-      {/* <pre> {JSON.stringify(pokemonList, null, 2)} </pre> */}
-      {/* <ul> */}
-      {
-
-        pokemonList.map(pokemon => {
-          return (
-            <div class="column is-one-fifth">
-              <div class="card">
-                <div class="card-header">
-                  <div class="card-header-title">
-                    <p>{pokemon.name}</p>
-                  </div>
+    <div class="section">
+      <div class="container">
+        {
+          pokemonList.map(pokemon => {
+            return (
+              <div class="column is-3">
+                <div class="card">
+                  <header class="card-header">
+                    <p class="card-header-title has-background-primary">{pokemon.name}</p>
+                  </header>
                 </div>
               </div>
-            </div>
-            // <li key={pokemon.id}>{pokemon.name}</li>
-          )
-        })
-      }
-      {/* </ul> */}
+              // <li key={pokemon.id}>{pokemon.name}</li>
+            )
+          })
+        }
+      </div>
     </div>
   )
 }
+
