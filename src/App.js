@@ -1,8 +1,8 @@
 import './App.css';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import { Home, MyPokemon, PokemonDetail } from './pages';
-import { Provider } from 'react-redux';
-import store from './store';
+// import { Provider } from 'react-redux';
+// import store from './store';
 import { ApolloProvider } from '@apollo/client';
 import client from './config/graphql'
 
