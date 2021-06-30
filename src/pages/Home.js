@@ -11,7 +11,7 @@ export default function Home() {
     dispatch(fetchPokemonList())
   }, [])
 
-  return (
+  return ( 
     <div className="container is-fluid">
       <div className="columns is-multiline is-mobile is-5 is-variable is-centered">
         {
