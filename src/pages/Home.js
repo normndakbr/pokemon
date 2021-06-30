@@ -2,12 +2,15 @@ import React from 'react';
 import PokeCard from '../components/pokeCard';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMONLIST } from '../config/queries';
+import { CircularProgress } from '@material-ui/core';
 
 export default function Home() {
-  const { data, error, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 50, offset: 0}})
+  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 50, offset: 0}})
 
   if (loading) {
-    return <h3>Loading Data...</h3>
+    return (
+      <CircularProgress />
+    )
   } else {
     return (
       <div className="container is-fluid">

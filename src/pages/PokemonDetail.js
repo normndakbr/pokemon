@@ -5,7 +5,7 @@ import { GET_POKEMONDETAIL } from '../config/queries';
 
 export default function PokemonDetail() {
   const { name } = useParams()
-  const { data, error, loading } = useQuery(GET_POKEMONDETAIL, { variables: { name } })
+  const { data, loading } = useQuery(GET_POKEMONDETAIL, { variables: { name } })
 
   if (loading) {
     return <h3>Loading Data...</h3>
@@ -23,7 +23,7 @@ export default function PokemonDetail() {
               </header>
               <div className="card-image">
                 <figure className="image has-background-grey-lighter is-128x128 is-centered">
-                  <img src={data.pokemon.sprites.front_default} />
+                  <img src={data.pokemon.sprites.front_default} alt={'?'}/>
                 </figure>
               </div>
               <h2>Types</h2>
