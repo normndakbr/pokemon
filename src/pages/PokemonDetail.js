@@ -1,52 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_POKEMONDETAIL } from '../config/queries';
 
 export default function PokemonDetail() {
   const { name } = useParams()
-  const [pokemonDetail, setPokemonDetail] = useState([])
-  const [pokemonImage, setPokemonImage] = useState([])
-  const [pokemonMoves, setPokemonMoves] = useState([])
-  const [pokemonTypes, setPokemonTypes] = useState([])
+  const { data, error, loading } = useQuery(GET_POKEMONDETAIL, { variables: { name } })
 
-  useEffect(() => {
-    // setLoading(true)
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .then(res => res.json())
-      .then(data => {
-        data.types.map(type => {
-          let temp = type['type']['name']
-          console.log(type)
-          return (
-            setPokemonTypes(temp)
-          )
-        })
-    console.log(pokemonTypes)
-    setPokemonDetail(data);
-    setPokemonImage(data.sprites['versions']['generation-v']['black-white']['animated']['front_default'])
-
-  })
-    .catch(err => {
-      console.log(err);
-    })
-  // .finally(() => setLoading(false))
-}, [name])
-
-return (
-  <div className="container is-fluid">
-    <div className="columns is-mobile is-variable is-centered">
-      <div className="column is-9-desktop is-10-mobile is-4-tablet is-centered">
-        <div className="card is-centered">
-          <header className="card-header  is-centered">
-            <p className="card-header-title is-centered is-capitalized">{pokemonDetail.name}</p>
-          </header>
-          <div className="card-image">
-            <figure className="image has-background-grey-lighter is-128x128 is-centered">
-              <img src={pokemonImage} />
-            </figure>
+  if (loading) {
+    return <h3>Loading Data...</h3>
+  } else {
+    return (
+      <div className="container is-fluid">
+        {
+          console.log(data.pokemon)
+        }
+        <div className="columns is-mobile is-variable is-centered">
+          <div className="column is-9-desktop is-10-mobile is-4-tablet is-centered">
+            <div className="card is-centered">
+              <header className="card-header  is-centered">
+                <p className="card-header-title is-centered is-capitalized"># {data.pokemon.id} - {data.pokemon.name}</p>
+              </header>
+              <div className="card-image">
+                <figure className="image has-background-grey-lighter is-128x128 is-centered">
+                  <img src={data.pokemon.sprites.front_default} />
+                </figure>
+              </div>
+              <h2>Types</h2>
+              {
+                data.pokemon.types.map((type, idx) => {
+                  return (
+                    <div className="card-content is-multiline">
+                      <div className="content">
+                        <button className="button is-warning is-light">{data.pokemon.types[idx].type.name}</button>
+                      </div>
+                    </div>
+                  )
+                })
+              }
+              <h2>Moves</h2>
+              {
+                data.pokemon.moves.map((move, idx) => {
+                  return (
+                    <div className="card-content is-multiline">
+                      <div className="content">
+                        <button className="button is-danger is-light">{data.pokemon.moves[idx].move.name}</button>
+                      </div>
+                    </div>
+                  )
+                })
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-)
+    )
+  }
 }
