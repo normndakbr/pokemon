@@ -45,10 +45,9 @@ export default function PokemonDetail() {
       <>
         <div className="card-image is-flex is-justify-content-space-around is-align-content-center">
           <figure className="image ">
-            <img src='../../public/pokeball.gif' alt={'?'} />
+            <img src={process.env.PUBLIC_URL + '/pokeball.gif'} alt={'Throwing Pokeball...'} />
           </figure>
-        </div>
-        <h1>Throwing Pokeball...</h1>
+        </div>=
       </>
     )
   } else {

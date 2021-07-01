@@ -14,9 +14,8 @@ export default function FailedCatchModal(props) {
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">Aww it ran away :(</p>
-          <button className="delete" aria-label="close"></button>
         </header>
-        <footer className="modal-card-foot is-centered">
+        <footer className="modal-card-foot is-flex is-justify-content-center">
           <button onClick={() => {backToExplore()}} className="button">Let it go and back to eksplore</button>
         </footer>
       </div>
