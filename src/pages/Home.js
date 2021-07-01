@@ -6,9 +6,15 @@ import { CircularProgress } from '@material-ui/core';
 import LoadingPage from './LoadingPage';
 
 export default function Home() {
-  // Kanto { limit: 151, offset: 0}
-  // Johto { limit: 235, offset: 151}
-  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 235, offset: 151}})
+  // Gen-1 { limit: 151, offset: 0 }
+  // Gen-2 { limit: 251, offset: 151 }
+  // Gen-3 { limit: 386, offset: 251 }
+  // Gen-4 { limit: 493, offset: 386 }
+  // Gen-5 { limit: 649 , offset: 493 }
+  // Gen-6 { limit: 721, offset: 649 }
+  // Gen-7 { limit: 809, offset: 721 }
+  // Gen-8 { limit: 898, offset: 809 }
+  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 721, offset: 649}})
 
   if (loading) {
     return (

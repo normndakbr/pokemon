@@ -2,11 +2,6 @@ import React from 'react';
 
 export default function LoadingPage() {
   return (
-    <img style={
-      { height: '100%' },
-      { backgroundPosition: 'center' },
-      { backgroundRepeat: 'no-repeat' },
-      { backgroundSize: 'cover' }
-    } src={process.env.PUBLIC_URL + '/pokeball.gif'} alt={'Throwing Pokeball...'} />
+    <img className="column is-12-mobile is-12-desktop" src={process.env.PUBLIC_URL + '/pokeball.gif'} alt={'Throwing Pokeball...'} />
   )
 }
