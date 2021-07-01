@@ -1,5 +1,8 @@
 import React from 'react';
+import SuccessCatchModal from '../components/SuccessCatchModal';
 
 export default function MyPokemon() {
-  return <h1>Hello, meet my Pokemons!</h1>
+  return (
+    <SuccessCatchModal/>
+  )
 }
