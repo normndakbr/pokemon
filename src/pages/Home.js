@@ -3,13 +3,17 @@ import PokeCard from '../components/PokeCard';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMONLIST } from '../config/queries';
 import { CircularProgress } from '@material-ui/core';
+import LoadingPage from './LoadingPage';
 
 export default function Home() {
-  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 151, offset: 0}})
+  // Kanto { limit: 151, offset: 0}
+  // Johto { limit: 235, offset: 151}
+  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 235, offset: 151}})
 
   if (loading) {
     return (
-      <CircularProgress />
+      <LoadingPage />
+      // <CircularProgress/>
     )
   } else {
     return (

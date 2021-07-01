@@ -35,3 +35,9 @@ query pokemon($name: String!) {
   }
 }
 `
+
+export const GET_MYPOKEMONLIST = gql `
+  query getMyPokemonList {
+    myPokemonsItem @client
+  }
+`

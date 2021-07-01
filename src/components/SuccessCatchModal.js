@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { myPokemons } from '../cache'
+import { GET_MYPOKEMONLIST } from '../config/queries';
 
 export default function SuccessCatchModal(props) {
   const history = useHistory()
   const [pokeData, setPokeData] = useState([])
+  const { data, error, loading } = useQuery(GET_MYPOKEMONLIST)
 
   useEffect(() => {
     async function fetchAnimation() {
@@ -13,6 +17,13 @@ export default function SuccessCatchModal(props) {
     }
     fetchAnimation()
   }, [])
+
+  function addToMyPokemon(){
+    const previousData = myPokemons()
+    myPokemons([`${props.data.pokemon.name}`, ...previousData])
+    console.log(myPokemons())
+    history.push('/')
+  }
 
   function backToExplore(){
     history.push(`/`);
@@ -33,7 +44,7 @@ export default function SuccessCatchModal(props) {
           </figure>
         </section>
         <footer className="modal-card-foot">
-          <button className="button is-success">Save</button>
+          <button onClick={() => {addToMyPokemon()}} className="button is-success">Save</button>
           <button onClick={() => {backToExplore()}} className="button">Leave it</button>
         </footer>
       </div>

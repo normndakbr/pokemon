@@ -53,9 +53,6 @@ export default function PokemonDetail() {
   } else {
     return (
       <div className="container is-fluid">
-        {
-          console.log(data.pokemon)
-        }
         <div className="columns is-mobile is-variable is-centered">
           <div className="column is-9-desktop is-10-mobile is-4-tablet is-centered">
             <div className="card is-centered">

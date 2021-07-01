@@ -1,8 +1,13 @@
 import React from 'react';
-import SuccessCatchModal from '../components/SuccessCatchModal';
+import { useQuery } from '@apollo/client';
+import { GET_MYPOKEMONLIST } from '../config/queries';
 
 export default function MyPokemon() {
+  const { data, error, loading } = useQuery(GET_MYPOKEMONLIST)
+
   return (
-    <SuccessCatchModal/>
+    <div>
+      {JSON.stringify(data)}
+    </div>
   )
 }
