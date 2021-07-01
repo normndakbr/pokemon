@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { myPokemons } from '../cache'
+import { myPokemons } from '../cache';
 import { GET_MYPOKEMONLIST } from '../config/queries';
 
 export default function SuccessCatchModal(props) {
-  const history = useHistory()
-  const [pokeData, setPokeData] = useState([])
-  const { data, error, loading } = useQuery(GET_MYPOKEMONLIST)
+  const history = useHistory();
+  const [nickname, setNickname] = useState();
+  const [pokeData, setPokeData] = useState([]);
+  const { data, error, loading } = useQuery(GET_MYPOKEMONLIST);
 
   useEffect(() => {
     async function fetchAnimation() {
@@ -18,14 +19,22 @@ export default function SuccessCatchModal(props) {
     fetchAnimation()
   }, [])
 
-  function addToMyPokemon(){
-    const previousData = myPokemons()
-    myPokemons([`${props.data.pokemon.name}`, ...previousData])
-    console.log(myPokemons())
-    history.push('/')
+  function handleInputChange(e) {
+    setNickname(e.target.value)
   }
 
-  function backToExplore(){
+  function addToMyPokemon() {
+    const previousData = myPokemons();
+    myPokemons([{
+      id: previousData.length + 1,
+      name: props.data.pokemon.name,
+      nickname: nickname
+    }, ...previousData]);
+    console.log(myPokemons());
+    history.push('/');
+  }
+
+  function backToExplore() {
     history.push(`/`);
   }
 
@@ -36,16 +45,22 @@ export default function SuccessCatchModal(props) {
         <header className="modal-card-head">
           <p className="modal-card-title">Gotcha! {props.data.pokemon.name} was caught!</p>
         </header>
-        <section className="modal-card-body">
-          <figure className="image is-128x128 is-centered">
+        <section className="modal-card-body is-flex is-justify-content-space-around is-align-content-center">
+          <figure className="image is-128x128">
             {
               pokeData.sprites && <img src={pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default']} alt={'?'} />
             }
           </figure>
+          <div className="field p-5">
+            <label className="label">Give it a nickname!</label>
+            <div className="control">
+              <input onChange={handleInputChange} className="input" type="text" name="nickname" placeholder="Nickname"/>
+            </div>
+          </div>
         </section>
-        <footer className="modal-card-foot">
-          <button onClick={() => {addToMyPokemon()}} className="button is-success">Save</button>
-          <button onClick={() => {backToExplore()}} className="button">Leave it</button>
+        <footer className="modal-card-foot is-flex is-justify-content-space-around">
+          <button onClick={() => { addToMyPokemon() }} className="button is-success">Save</button>
+          <button onClick={() => { backToExplore() }} className="button">Leave it</button>
         </footer>
       </div>
     </div>

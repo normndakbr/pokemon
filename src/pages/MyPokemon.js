@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { myPokemons } from '../cache';
 import { GET_MYPOKEMONLIST } from '../config/queries';
 
 export default function MyPokemon() {
@@ -7,7 +8,7 @@ export default function MyPokemon() {
 
   return (
     <div>
-      {JSON.stringify(data)}
+      {JSON.stringify(myPokemons())}
     </div>
   )
 }
