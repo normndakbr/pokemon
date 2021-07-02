@@ -1,22 +1,18 @@
 import './App.css';
-import { Switch, Route, NavLink } from 'react-router-dom';
-import { Home, MyPokemon, PokemonDetail } from './pages';
+import { Switch, Route } from 'react-router-dom';
+import { Home, MyPokemon, PokemonDetail, MyPokemonDetail } from './pages';
 import { ApolloProvider } from '@apollo/client';
-import client from './config/graphql'
+import client from './config/graphql';
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/my-pokemon">My Pokemon</NavLink>
-        </li>
-      </ul>
-      <div className="App">
+      {/* <Navi/> */}
+      <div style={{ backgroundColor: '#32373e' }} className="App">
         <Switch>
+          <Route path="/my-pokemon-detail/:id">
+            <MyPokemonDetail></MyPokemonDetail>
+          </Route>
           <Route path="/my-pokemon">
             <MyPokemon></MyPokemon>
           </Route>

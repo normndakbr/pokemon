@@ -1,19 +1,17 @@
 import React from 'react';
-// import { useQuery } from '@apollo/client';
 import { myPokemons } from '../cache';
-import PokeCard from '../components/PokeCard';
-// import { GET_MYPOKEMONLIST } from '../config/queries';
+import MyPokeCard from '../components/MyPokeCard';
+import Navi from '../components/Navi';
 
 export default function MyPokemon() {
-  // const { data, error, loading } = useQuery(GET_MYPOKEMONLIST)
-
   return (
-    <div className="container is-fluid">
+    <div style={{backgroundColor: '#32373e'}} className="container is-fluid">
+      <Navi/>
       <div className="columns is-multiline is-mobile is-5 is-variable is-centered">
         {
           myPokemons().map(pokemonData => {
             return (
-              <PokeCard key={pokemonData.id} detailOfPokemon={pokemonData} />
+              <MyPokeCard key={pokemonData.id} detailOfPokemon={pokemonData} />
             )
           })
         }

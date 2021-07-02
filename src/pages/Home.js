@@ -2,8 +2,8 @@ import React from 'react';
 import PokeCard from '../components/PokeCard';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMONLIST } from '../config/queries';
-import { CircularProgress } from '@material-ui/core';
 import LoadingPage from './LoadingPage';
+import Navi from '../components/Navi';
 
 export default function Home() {
   // Gen-1 { limit: 151, offset: 0 }
@@ -14,16 +14,16 @@ export default function Home() {
   // Gen-6 { limit: 721, offset: 649 }
   // Gen-7 { limit: 809, offset: 721 }
   // Gen-8 { limit: 898, offset: 809 }
-  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 721, offset: 649}})
+  const { data, loading } = useQuery(GET_POKEMONLIST, { variables: { limit: 151, offset: 0}})
 
   if (loading) {
     return (
       <LoadingPage />
-      // <CircularProgress/>
     )
   } else {
     return (
-      <div className="container is-fluid">
+      <div style={{backgroundColor: '#32373e'}} className="container is-fluid is-danger is-light">
+        <Navi/>
         <div className="columns is-multiline is-mobile is-5 is-variable is-centered">
           {
             data.pokemons.results.map(pokemonData => {

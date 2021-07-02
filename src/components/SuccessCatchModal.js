@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { myPokemons } from '../cache';
 import { GET_MYPOKEMONLIST } from '../config/queries';
-import Grow from '@material-ui/core/Grow';
+import { Grow } from '@material-ui/core';
 
 export default function SuccessCatchModal(props) {
   const history = useHistory();
@@ -43,7 +43,9 @@ export default function SuccessCatchModal(props) {
         front: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default'],
         back: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['back_default']
       },
-      flavorText: flavorText
+      flavorText: flavorText,
+      moves : props.data.pokemon.moves,
+      types : props.data.pokemon.types
     }, ...previousData]);
     console.log(myPokemons());
     history.push('/');
@@ -64,11 +66,9 @@ export default function SuccessCatchModal(props) {
             <p className="modal-card-title">Gotcha! {props.data.pokemon.name} was caught!</p>
           </header>
           <section className="modal-card-body is-flex is-justify-content-space-around is-align-content-center">
-            <figure className="image is-128x128">
-              {
-                pokeData.sprites && <img src={pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default']} alt={'?'} />
-              }
-            </figure>
+            {
+              pokeData.sprites && <img className="image is-128x128" src={pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default']} alt={'?'} />
+            }
             <div className="field p-5">
               <label className="label">Give it a nickname!</label>
               <div className="control">
