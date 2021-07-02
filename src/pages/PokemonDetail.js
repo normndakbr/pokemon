@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMONDETAIL } from '../config/queries';
-import { CircularProgress } from '@material-ui/core';
 import FailedCatchModal from '../components/FailedCatchModal';
 import SuccessCatchModal from '../components/SuccessCatchModal';
+import LoadingPage from '../pages/LoadingPage';
 import Navi from '../components/Navi';
 
 export default function PokemonDetail() {
@@ -35,21 +35,22 @@ export default function PokemonDetail() {
         console.log(message)
         setCatching(false)
       }
-    }, 2000)
+    }, 6000)
   }
 
   if (loading) {
-    return <CircularProgress />
+    return <LoadingPage />
   }
   else if (catching) {
     return (
-      <>
-        <div className="card-image is-flex is-justify-content-space-around is-align-content-center">
-          <figure className="image ">
-            <img src={process.env.PUBLIC_URL + '/pokeball.gif'} alt={'Throwing Pokeball...'} />
-          </figure>
-        </div>=
-      </>
+      <section style={{ backgroundColor: '#ec1d23' }} className="hero is-fullheight" >
+        <div className="hero-body">
+          <div className="">
+            <img className="column is-12-mobile is-12-desktop" src={process.env.PUBLIC_URL + '/pokeball2.gif'} alt={'Throwing Pokeball...'} />
+            <h1 style={{color: '#ffffff'}} className="is-size-3 is-white has-text-weight-bold">Throwing Pokeball...</h1>
+          </div>
+        </div>
+      </section >
     )
   } else {
     return (

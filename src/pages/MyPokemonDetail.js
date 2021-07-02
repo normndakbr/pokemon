@@ -5,10 +5,12 @@ import { myPokemons } from '../cache/index';
 export default function PokemonDetail() {
   const { id } = useParams()
   const data = myPokemons()
+  let [pokeData, setPokeData] = useState()
   let [catching, setCatching] = useState(false)
-  console.log(id)
-  console.log(data[`${id}`])
-  //TINGGAL SUSUN DATANYA, SEMANGAT!!!
+
+  setPokeData(data[`${id}`])
+
+  console.log(pokeData)
 
   if (catching) {
     return (

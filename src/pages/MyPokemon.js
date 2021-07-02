@@ -5,7 +5,7 @@ import Navi from '../components/Navi';
 
 export default function MyPokemon() {
   return (
-    <div style={{backgroundColor: '#32373e'}} className="container is-fluid">
+    <div style={{backgroundColor: '#32373e'}} className="container is-fluid is-fullheight">
       <Navi/>
       <div className="columns is-multiline is-mobile is-5 is-variable is-centered">
         {
