@@ -14,12 +14,9 @@ export default function MyPokeCard(props) {
   function removePokemon() {
     let previousData = myPokemons()
     let x = previousData.findIndex((element, i) => element.id === props.detailOfPokemon.id) 
-    // console.log(x, "ini Index Data")
-    // console.log('before splice', previousData)
-    let result = previousData.splice(x, 1)
-    // console.log('result splice', result)
-    // console.log('after splice', previousData)
+    previousData.splice(x, 1)
     myPokemons(previousData)
+    props.setMyPokemonList(previousData)
   }
 
   return (
