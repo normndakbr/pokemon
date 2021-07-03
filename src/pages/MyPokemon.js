@@ -5,21 +5,16 @@ import Navi from '../components/Navi';
 
 export default function MyPokemon() {
   let [myPokemonList, setMyPokemonList] = useState([])
-  // let pokemonData = myPokemons()
-  // setMyPokemonList(pokemonData)
 
   function removePokemon(id) {
     console.log(id, "masuk sini")
     let previousData = myPokemons()
-    // let myPokemonId = previousData.findIndex((element) => element.id === id)
     let result = previousData.filter(pokemon => pokemon.id !== id)
-    console.log(result)
     myPokemons(result)
     setMyPokemonList(result)
   }
 
   useEffect(() => {
-    console.log("useEffect jalan")
     let pokemonData = myPokemons()
     setMyPokemonList(pokemonData)
   }, [myPokemonList])
