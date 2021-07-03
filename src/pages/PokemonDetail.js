@@ -35,7 +35,7 @@ export default function PokemonDetail() {
         console.log(message)
         setCatching(false)
       }
-    }, 6000)
+    }, 5000)
   }
 
   if (loading) {

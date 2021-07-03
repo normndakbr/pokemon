@@ -48,8 +48,6 @@ export default function SuccessCatchModal(props) {
 
   function handleInputChange(e) {
     setNewNickname(e.target.value)
-    // checkIsExist(e.target.value)
-
   }
 
   function addToMyPokemon() {
