@@ -11,14 +11,6 @@ export default function MyPokeCard(props) {
     history.push(`/my-pokemon-detail/${id}`);
   }
 
-  function removePokemon() {
-    let previousData = myPokemons()
-    let x = previousData.findIndex((element, i) => element.id === props.detailOfPokemon.id) 
-    previousData.splice(x, 1)
-    myPokemons(previousData)
-    props.setMyPokemonList(previousData)
-  }
-
   return (
     <Grow in={checked} >
       <div className="column is-2-desktop is-6-mobile is-4-tablet is-centered">
@@ -28,7 +20,7 @@ export default function MyPokeCard(props) {
             <p style={{ letterSpacing: '2px' }, { color: '#1e2021' }} className="card-header-title is-centered is-capitalized is-6-mobile is-4-tablet">{props.detailOfPokemon.nickname} ({props.detailOfPokemon.name})</p>
           </div>
           <div>
-            <button onClick={() => removePokemon()} className="button is-small is-danger is-light">Release</button>
+            <button onClick={() => props.removePokemon(props.detailOfPokemon.id)} className="button is-small is-danger is-light">Release</button>
           </div>
         </div>
       </div>

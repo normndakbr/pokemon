@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { myPokemons } from '../cache';
 import { GET_MYPOKEMONLIST } from '../config/queries';
 import { Grow } from '@material-ui/core';
+import { uuid } from 'uuidv4';
 
 export default function SuccessCatchModal(props) {
   const { data, error, loading } = useQuery(GET_MYPOKEMONLIST);
@@ -58,7 +59,7 @@ export default function SuccessCatchModal(props) {
     },2000)
     if (!validateExist) {
       myPokemons([...previousData, {
-        id: previousData.length + 1,
+        id: uuid(),
         pokedexId: props.data.pokemon.id,
         nickname: newNickname,
         name: props.data.pokemon.name,
