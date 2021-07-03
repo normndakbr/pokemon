@@ -19,7 +19,7 @@ export default function MyPokeCard(props) {
             <p style={{ letterSpacing: '2px' }, { color: '#1e2021' }} className="card-header-title is-centered is-capitalized is-6-mobile is-4-tablet">{props.detailOfPokemon.nickname} ({props.detailOfPokemon.name})</p>
           </div>
           <div>
-            <button>Release</button>
+            <button className="button is-small is-danger is-light">Release</button>
           </div>
         </div>
       </div>

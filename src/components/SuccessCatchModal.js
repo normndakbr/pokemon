@@ -6,12 +6,14 @@ import { GET_MYPOKEMONLIST } from '../config/queries';
 import { Grow } from '@material-ui/core';
 
 export default function SuccessCatchModal(props) {
+  const { data, error, loading } = useQuery(GET_MYPOKEMONLIST);
   const history = useHistory();
   const [checked, setChecked] = useState(true);
-  const [nickname, setNickname] = useState();
+  const [newNickname, setNewNickname] = useState();
   const [pokeData, setPokeData] = useState([]);
   const [flavorText, setFlavorText] = useState([]);
-  const { data, error, loading } = useQuery(GET_MYPOKEMONLIST);
+  let [isExist, setIsExist] = useState();
+  let tempData = myPokemons()
 
   useEffect(() => {
     async function fetchAnimation() {
@@ -28,34 +30,56 @@ export default function SuccessCatchModal(props) {
     fetchFlavorText()
   }, [])
 
+  function checkIsExist(nickname) {
+    console.log(tempData)
+
+    for (let i = 1; i <= tempData.length; i++) {
+      console.log({ nickname })
+      let temp = tempData[i - 1].nickname
+      console.log({ temp })
+      if (nickname === tempData[i - 1].nickname) {
+        setIsExist(true)
+        return true;
+      }
+    }
+    setIsExist(false)
+    return false;
+  }
+
   function handleInputChange(e) {
-    setNickname(e.target.value)
+    setNewNickname(e.target.value)
+    // checkIsExist(e.target.value)
+
   }
 
   function addToMyPokemon() {
     const previousData = myPokemons();
-    myPokemons([{
-      id: previousData.length + 1,
-      pokedexId: props.data.pokemon.id,
-      nickname: nickname,
-      name: props.data.pokemon.name,
-      image: {
-        front: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default'],
-        back: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['back_default']
-      },
-      flavorText: flavorText,
-      moves : props.data.pokemon.moves,
-      types : props.data.pokemon.types
-    }, ...previousData]);
-    console.log(myPokemons());
-    history.push('/');
+    const validateExist = checkIsExist(newNickname)
+    setTimeout( () => {
+      setIsExist(false)
+    },2000)
+    if (!validateExist) {
+      myPokemons([...previousData, {
+        id: previousData.length + 1,
+        pokedexId: props.data.pokemon.id,
+        nickname: newNickname,
+        name: props.data.pokemon.name,
+        image: {
+          front: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default'],
+          back: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['back_default']
+        },
+        flavorText: flavorText,
+        moves: props.data.pokemon.moves,
+        types: props.data.pokemon.types
+      }]);
+      console.log(myPokemons());
+      history.push('/');
+    }
   }
 
   function backToExplore() {
     history.push(`/`);
   }
-
-  // console.log(flavorText)
 
   return (
     <Grow in={checked}>
@@ -73,11 +97,15 @@ export default function SuccessCatchModal(props) {
               <label className="label">Give it a nickname!</label>
               <div className="control">
                 <input onChange={handleInputChange} className="input" type="text" name="nickname" placeholder="Nickname" />
+                {
+                    <small className="is-danger" hidden={!isExist}>This name is already exist</small>
+
+                }
               </div>
             </div>
           </section>
           <footer className="modal-card-foot is-flex is-justify-content-space-around">
-            <button onClick={() => { addToMyPokemon() }} disabled={!nickname} className="button is-success">Save</button>
+            <button onClick={() => { addToMyPokemon() }} disabled={!newNickname} className="button is-success">Save</button>
             <button onClick={() => { backToExplore() }} className="button">Leave it</button>
           </footer>
         </div>
