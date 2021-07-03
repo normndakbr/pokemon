@@ -5,22 +5,23 @@ import Navi from '../components/Navi';
 
 export default function MyPokemon() {
   let [myPokemonList, setMyPokemonList] = useState([])
+  // let pokemonData = myPokemons()
+  // setMyPokemonList(pokemonData)
 
   function removePokemon(id) {
+    console.log(id, "masuk sini")
     let previousData = myPokemons()
-    let x = previousData.findIndex((element, i) => element.id === id)
-    let result = previousData.filter(pokemon => pokemon.id !== x)
+    // let myPokemonId = previousData.findIndex((element) => element.id === id)
+    let result = previousData.filter(pokemon => pokemon.id !== id)
+    console.log(result)
     myPokemons(result)
     setMyPokemonList(result)
   }
 
   useEffect(() => {
-    console.log("masuk sini")
+    console.log("useEffect jalan")
     let pokemonData = myPokemons()
-    setTimeout(() => {
-      setMyPokemonList(pokemonData)
-    }, 1000)
-    console.log(pokemonData)
+    setMyPokemonList(pokemonData)
   }, [myPokemonList])
 
   return (
@@ -28,9 +29,9 @@ export default function MyPokemon() {
       <Navi />
       <div className="columns is-multiline is-mobile is-5 is-variable is-centered">
         {
-          myPokemonList.map(pokemonData => {
+          myPokemonList.map((pokemonData, idx) => {
             return (
-              <MyPokeCard key={pokemonData.id} detailOfPokemon={pokemonData} setMyPokemonList={setMyPokemonList} removePokemon={removePokemon} />
+              <MyPokeCard key={idx} detailOfPokemon={pokemonData} setMyPokemonList={setMyPokemonList} removePokemon={removePokemon} />
             )
           })
         }
