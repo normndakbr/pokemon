@@ -8,9 +8,10 @@ import { Grow } from '@material-ui/core';
 export default function SuccessCatchModal(props) {
   const history = useHistory();
   const [checked, setChecked] = useState(true);
-  const [nickname, setNickname] = useState();
+  const [newNickname, setNewNickname] = useState();
   const [pokeData, setPokeData] = useState([]);
   const [flavorText, setFlavorText] = useState([]);
+  let [isExist, setIsExist] = useState(false);
   const { data, error, loading } = useQuery(GET_MYPOKEMONLIST);
 
   useEffect(() => {
@@ -28,8 +29,22 @@ export default function SuccessCatchModal(props) {
     fetchFlavorText()
   }, [])
 
+  function checkIsExist() {
+    let tempData = myPokemons()
+    for (let i = 1; i <= tempData.length; i++) {
+      if (newNickname === tempData[i].nickname) {
+        setIsExist(true)
+        break;
+      } else {
+        setIsExist(false)
+      }
+    }
+  }
+
   function handleInputChange(e) {
-    setNickname(e.target.value)
+    if(!checkIsExist) {
+      setNewNickname(e.target.value)
+    }
   }
 
   function addToMyPokemon() {
@@ -37,15 +52,15 @@ export default function SuccessCatchModal(props) {
     myPokemons([{
       id: previousData.length + 1,
       pokedexId: props.data.pokemon.id,
-      nickname: nickname,
+      nickname: newNickname,
       name: props.data.pokemon.name,
       image: {
         front: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['front_default'],
         back: pokeData['sprites']['versions']['generation-v']['black-white']['animated']['back_default']
       },
       flavorText: flavorText,
-      moves : props.data.pokemon.moves,
-      types : props.data.pokemon.types
+      moves: props.data.pokemon.moves,
+      types: props.data.pokemon.types
     }, ...previousData]);
     console.log(myPokemons());
     history.push('/');
@@ -54,8 +69,6 @@ export default function SuccessCatchModal(props) {
   function backToExplore() {
     history.push(`/`);
   }
-
-  // console.log(flavorText)
 
   return (
     <Grow in={checked}>
@@ -71,13 +84,14 @@ export default function SuccessCatchModal(props) {
             }
             <div className="field p-5">
               <label className="label">Give it a nickname!</label>
-              <div className="control">
+              <div className="control">1
                 <input onChange={handleInputChange} className="input" type="text" name="nickname" placeholder="Nickname" />
+                <small className="is-danger" hidden={!isExist}>This name is already exist</small>
               </div>
             </div>
           </section>
           <footer className="modal-card-foot is-flex is-justify-content-space-around">
-            <button onClick={() => { addToMyPokemon() }} disabled={!nickname} className="button is-success">Save</button>
+            <button onClick={() => { addToMyPokemon() }} disabled={!newNickname || isExist} className="button is-success">Save</button>
             <button onClick={() => { backToExplore() }} className="button">Leave it</button>
           </footer>
         </div>
